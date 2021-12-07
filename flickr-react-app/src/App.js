@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import apiKey from './config';
+//components
+import Nav from './components/Nav';
+import NotFound from './components/NotFound';
+import PhotoContainer from './components/PhotoContainer';
+import SearchForm from './components/SearchForm';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const photos = [];
+
+class App extends Component {
+  render () {
+    return (
+     
+      <Router>
+        <div>
+          <Nav />
+          <PhotoContainer photos = { photos } />
+            {/* <Route exact path='/' />
+            <Route path='/kitties' />
+            <Route path='/puppies' />
+            <Route path='/igauanas' /> */}
+        </div>
+      </Router>
+
+    );
+  }
 }
 
 export default App;
