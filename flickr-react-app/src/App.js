@@ -1,33 +1,35 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
+  Routes,
+  // Switch,
   Route,
 } from 'react-router-dom';
 import apiKey from './config';
-//components
-import Nav from './components/Nav';
-import NotFound from './components/NotFound';
-import PhotoContainer from './components/PhotoContainer';
-import SearchForm from './components/SearchForm';
 
-const photos = [];
+//components
+import SearchForm from './components/SearchForm';
+import Nav from './components/Nav';
+import PhotoContainer from './components/PhotoContainer';
+
+// const photos = [];
+// const apiKey1 = apiKey;
 
 class App extends Component {
   render () {
     return (
-     
-      <Router>
-        <div>
+      <BrowserRouter>
+        <div className="container">  
+          <SearchForm />
           <Nav />
-          <PhotoContainer photos = { photos } />
-            {/* <Route exact path='/' />
-            <Route path='/kitties' />
-            <Route path='/puppies' />
-            <Route path='/igauanas' /> */}
-        </div>
-      </Router>
-
+          <Routes>
+            <Route exact path='/' render={ () => <PhotoContainer /> } />
+            <Route path='/kitties' render={ () => <PhotoContainer /> } />
+            <Route path='/puppies' render={ () => <PhotoContainer /> } />
+            <Route path='/igauanas' render={ () => <PhotoContainer /> } />
+          </Routes>
+          </div>
+      </BrowserRouter>
     );
   }
 }
