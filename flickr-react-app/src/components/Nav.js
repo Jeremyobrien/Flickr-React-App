@@ -5,9 +5,9 @@ const Nav = (props) => {
     return(
         <nav className="App-header">
         <ul>
-          <li><NavLink to='/kitties'>Kitties</NavLink></li>
-          <li><NavLink to='/puppies'>Puppies</NavLink></li>
-          <li><NavLink to='/iguanas'>Iguanas</NavLink></li>
+          <button><li><NavLink to='/kitties'>Kitties</NavLink></li></button>
+          <button><li><NavLink to='/puppies'>Puppies</NavLink></li></button>
+          <button><li><NavLink to='/iguanas'>Iguanas</NavLink></li></button>
         </ul>
         </nav>
     );

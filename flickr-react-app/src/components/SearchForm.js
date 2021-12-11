@@ -1,5 +1,5 @@
-import React, { Componenet } from 'react';
-import { Component } from 'react/cjs/react.production.min';
+import React, { Component } from 'react';
+
 
 class SearchForm extends Component {
     render () {

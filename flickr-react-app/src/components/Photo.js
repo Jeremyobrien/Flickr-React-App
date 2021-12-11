@@ -1,10 +1,9 @@
 import React from 'react';
 
 const Photo = (props) => {
-    const url = `https://farm5.staticflickr.com/4334/${props.apiKey}.jpg`
     return (
         <li>
-            <img src= {url} alt="" />
+            <img src={props.url} alt={props.title} />
         </li>
     )
 };
