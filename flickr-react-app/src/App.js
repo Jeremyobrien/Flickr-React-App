@@ -5,7 +5,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Switch
 } from 'react-router-dom';
 import apiKey from './config';
 
@@ -13,9 +12,8 @@ import apiKey from './config';
 import SearchForm from './components/SearchForm';
 import Nav from './components/Nav';
 import PhotoContainer from './components/PhotoContainer';
-import NotFound from './components/NotFound';
 
-// const photos = [];
+
 // const apiKey1 = apiKey;
 
 
@@ -23,39 +21,46 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      photos: []
+      photos: [],
+      loading: true
     };
   }
 
   componentDidMount() {
-    axios.get('https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=fdbdeac236c88bf5c414addc80826161&tags=kitties&per_page=24&format=json&nojsoncallback=1')
+    this.performSearch();
+  }
+
+  performSearch = (query = 'kitties') => {
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=fdbdeac236c88bf5c414addc80826161&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
         this.setState({
-          photos: response.data.photos.photo
+          photos: response.data.photos.photo,
+          loading: false
         })
     })
     .catch(error => {
       console.log('Error fetching and parsing data', error);
     });
   }
-
-  performSearch = () => {
-
-  }
   
   render () {
     return (
       <BrowserRouter>
         <div className="container">  
-          <SearchForm />
-          <Nav />
-          <Routes>
-            <Route exact path='/' element={<PhotoContainer data={this.state.photos} /> } />
-            <Route exact path='/kitties' element={<PhotoContainer data={this.state.photos} /> } />
-            <Route exact path='/puppies' element={<PhotoContainer data={this.state.photos} /> } />
-            <Route exact path='/igauanas' element={<PhotoContainer data={this.state.photos} /> } />
-            <Route element={<NotFound />} />
-          </Routes>
+          {
+            (this.state.loading)
+            ? <p>Loading...</p>       
+            : <div>
+              <SearchForm onSearch={this.performSearch} />
+              <Nav />
+              <Routes>
+                <Route exact path='/' element={<PhotoContainer data={this.state.photos} /> } />
+                <Route exact path='/kitties' element={<PhotoContainer data={this.state.photos} /> } />
+                <Route exact path='/puppies' element={<PhotoContainer data={this.state.photos} /> } />
+                <Route exact path='/igauanas' element={<PhotoContainer data={this.state.photos} /> } />
+              </Routes>
+              </div>
+          }
           </div>
       </BrowserRouter>
     );

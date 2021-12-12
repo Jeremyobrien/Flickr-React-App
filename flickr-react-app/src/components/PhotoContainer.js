@@ -1,5 +1,6 @@
 import React from 'react';
 import Photo from './Photo';
+import NotFound from './NotFound';
 
 
 
@@ -11,16 +12,23 @@ const PhotoContainer = (props) => {
     // handlePhotoCreation = () => {
     //     this.props.photos.map( photo => <Photo />)
     // }
+    
     const results = props.data;
-    let images = results.map(image => <Photo url={`https://live.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`} key={image.id} />);
+    let images;
+    if (results.length > 0) {
+         images = results.map(image => <Photo url={`https://live.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`} key={image.id} />);
+    } else {
+       images = <NotFound />
+    }
+   
 
         return (
-        <div className="photo-container">
-        <h2>Results</h2>
-        <ul>
-            {images}
-        </ul>
-        </div>
+            <div className="photo-container">
+                <h2>Results</h2>
+                <ul>
+                    {images}
+                </ul>
+            </div>
         );
     };
 
