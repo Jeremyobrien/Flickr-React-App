@@ -1,4 +1,4 @@
-import React, { Component, Redirect } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import {
@@ -12,30 +12,31 @@ import apiKey from './config';
 import SearchForm from './components/SearchForm';
 import Nav from './components/Nav';
 import PhotoContainer from './components/PhotoContainer';
+import NotFound from './components/NotFound';
 
 
 // const apiKey1 = apiKey;
 
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
+
+    state = {
       photos: [],
-      loading: true
+      loading: true,
+      query: ''
     };
-  }
 
   componentDidMount() {
-    this.performSearch();
+    this.performSearch('kitties');
   }
 
-  performSearch = (query = 'kitties') => {
+  performSearch = (query) => {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=fdbdeac236c88bf5c414addc80826161&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
         this.setState({
           photos: response.data.photos.photo,
-          loading: false
+          loading: false,
+          query: query
         })
     })
     .catch(error => {
@@ -52,12 +53,13 @@ class App extends Component {
             ? <p>Loading...</p>       
             : <div>
               <SearchForm onSearch={this.performSearch} />
-              <Nav />
+              <Nav handleClick={this.performSearch} />
               <Routes>
-                <Route exact path='/' element={<PhotoContainer data={this.state.photos} /> } />
-                <Route exact path='/kitties' element={<PhotoContainer data={this.state.photos} /> } />
-                <Route exact path='/puppies' element={<PhotoContainer data={this.state.photos} /> } />
-                <Route exact path='/igauanas' element={<PhotoContainer data={this.state.photos} /> } />
+                <Route exact path='/' element={<PhotoContainer data={this.state.photos} query={this.state.query} /> } />
+                <Route exact path='/kitties' element={<PhotoContainer data={this.state.photos} query={this.state.query} /> } />
+                <Route exact path='/puppies' element={<PhotoContainer data={this.state.photos} query={this.state.query} /> } />
+                <Route exact path='/iguanas' element={<PhotoContainer data={this.state.photos} query={this.state.query} /> } />
+                <Route path="*" element={<NotFound />} />
               </Routes>
               </div>
           }
