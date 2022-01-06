@@ -1,29 +1,54 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
+// import { useForm, useFiedArray, useWatch } from 'react-hook-form';
 
-class SearchForm extends Component {
-  state = {
-    searchText: ''
-  }
-  
-  onSearchChange = e => {
-    this.setState({ searchText: e.target.value });
-  }
+//create url in searchForm ->Perform Search -> .then(updayteURL)?
+const SearchForm = (props) => {
+  const [ searchTerm, setSearchTerm ] = useState("");
+  // state = {
+  //   searchText: ''
+  // }
 
-  handleSubmit = e => {
+  // createUrl () {
+  // //   let navigate = useNavigate();
+
+  // // }
+
+  // const { searchTerm, control } = useForm();
+  // const { fields, append } = useFiedArray({
+  //   control,
+  //   name: 'search'
+  // })
+
+  //   let textInput = null;
+  //   const onButtonClick = () => {
+  //     textInput.focus();
+  // }
+
+  // const onSearchChange = e => {
+  //   props.onSearch(e.target.value);
+  // }
+  // let navigate = useNavigate()
+
+  // // const {search} = input.query;
+
+  const onSearchChange = e => setSearchTerm(e.target.value);
+
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSearch(this.query.value);
-    e.currentTarget.reset();
+    props.runSearch(searchTerm);
+    e.target.reset(); 
   }
 
-    render () {
+//navigate(`${search}`)
         return (
-            <form className="search-form" onSubmit={this.handleSubmit}> 
+            <form className="search-form" onSubmit={handleSubmit}> 
             <input type="search" 
                    name="search" 
                    placeholder="Search"
-                   onChange={this.onSearchChange} 
-                   ref={(input) => this.query = input}
+                   onChange={onSearchChange} 
+                  //  value={searchTerm}
                    required/>
             <button type="submit" className="search-button">
               <svg fill="#fff" height="24" viewBox="0 0 23 23" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -34,6 +59,6 @@ class SearchForm extends Component {
           </form>
         );
     }
-}
+
 
 export default SearchForm;
