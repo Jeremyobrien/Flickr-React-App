@@ -6,32 +6,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 //create url in searchForm ->Perform Search -> .then(updayteURL)?
 const SearchForm = (props) => {
   const [ searchTerm, setSearchTerm ] = useState("");
-  // state = {
-  //   searchText: ''
-  // }
-
-  // createUrl () {
-  // //   let navigate = useNavigate();
-
-  // // }
-
-  // const { searchTerm, control } = useForm();
-  // const { fields, append } = useFiedArray({
-  //   control,
-  //   name: 'search'
-  // })
-
-  //   let textInput = null;
-  //   const onButtonClick = () => {
-  //     textInput.focus();
-  // }
-
-  // const onSearchChange = e => {
-  //   props.onSearch(e.target.value);
-  // }
-  // let navigate = useNavigate()
-
-  // // const {search} = input.query;
 
   const onSearchChange = e => setSearchTerm(e.target.value);
 
