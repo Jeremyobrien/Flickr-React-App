@@ -1,17 +1,20 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useUpdateData } from './Context';
 
 // import { useForm, useFiedArray, useWatch } from 'react-hook-form';
 
 //create url in searchForm ->Perform Search -> .then(updayteURL)?
 const SearchForm = (props) => {
   const [ searchTerm, setSearchTerm ] = useState("");
-
+  let navigate = useNavigate();
+  const runSearch = useUpdateData();
   const onSearchChange = e => setSearchTerm(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.runSearch(searchTerm);
+    runSearch(searchTerm);
+    navigate(`search/${searchTerm}`);
     e.target.reset(); 
   }
 

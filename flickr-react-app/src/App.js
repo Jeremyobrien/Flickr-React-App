@@ -1,12 +1,12 @@
-import {useState, useEffect } from 'react';
-import { Provider } from './components/Context';
+import {useState, useEffect, useCallback,useMemo } from 'react';
+import { GalleryProvider, useData, useUpdateData } from './components/Context';
 import './App.css';
 import axios from 'axios';
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
-  useLocation
+  useParams,
+  useNavigate
 } from 'react-router-dom';
 import apiKey from './config';
 
@@ -18,47 +18,55 @@ import NotFound from './components/NotFound';
 
 
 const App = () => {
+  
+  // let search = useParams();
+  // searchParams = setSearchParams(search);
+  
+  // if (searchParams !== query) {
+  //   setQuery(searchParams);
+  // }
 
-  const [photos, setPhotos] = useState([]);
-  const [query, setQuery] = useState("kitties");
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
-      .then(response => { setPhotos(response.data.photos.photo)})
-      .catch(error => { console.log('Error fetching and parsing data', error)})
-      .finally(setIsLoading(false));
-  }, [query]);
+
+
+// const getQuery = useMemo( () => ({ updateQuery }), [updateQuery]);
+
+
   
 
-  const updateQuery = (query) =>{
-    setQuery(query);
-  }
+
+
+
+  // const params = searchParams.get('search')
+  // setSearchParams(params);
+  // if (searchParams !== query) {
+  // return updateQuery(searchParams);
+  // }
+
+const isLoading = useData();
 
     return (
-      <Provider value={ {photos, query} }>
-        <Router>
+      <GalleryProvider>
           <div className="container">  
             {
               (isLoading)
               ? <p>Loading...</p>       
               : <div>
-              <SearchForm runSearch={updateQuery}  />
-              <Nav handleClick={updateQuery} />
+              <SearchForm />
+              <Nav />
                 <Routes>
-                  <Route path='/' element={ <PhotoContainer data={photos} query={query} /> } >
-                    <Route path=':search' element={<PhotoContainer data={photos} query={query} />} />
-                    <Route path='kitties' element={ <PhotoContainer data={photos} query={query} /> } />
-                    <Route path='puppies' element={ <PhotoContainer data={photos} query={query} /> } />
-                    <Route path='iguanas' element={ <PhotoContainer data={photos} query={query} /> } />
+                  <Route path='/' element={ <PhotoContainer /> } >
+                    <Route path='search/:query' element={<PhotoContainer />} />
+                    <Route path='kitties' element={ <PhotoContainer /> } />
+                    <Route path='puppies' element={ <PhotoContainer /> } />
+                    <Route path='iguanas' element={ <PhotoContainer /> } />
                   </Route>
                   <Route path="*" element={ <NotFound />} />
               </Routes>
                 </div>
             }
             </div>
-        </Router>
-      </Provider>
+      </GalleryProvider>
     );
   }
 
