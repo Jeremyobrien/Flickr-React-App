@@ -1,8 +1,10 @@
-import React, { useData } from './Context'
+import React, { useData } from './Context';
+import '../assets/css/style.css';
 import Photo from './Photo';
 import NotFound from './NotFound';
 
 
+//receives data and renders a list of search results
 const PhotoContainer = () => { 
     const { isLoading, query, photos } = useData();
 
@@ -23,7 +25,8 @@ const PhotoContainer = () => {
     <div className="photo-container">
         {
             isLoading ? 
-                <h1>Loading...</h1>:
+                <h1>Loading...</h1>
+                :
                 <div>
                     <h2>Results for "{searchTerm}"</h2>
                     <ul>

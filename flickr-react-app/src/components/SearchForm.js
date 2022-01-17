@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateData } from './Context';
 
+//handles searches and updates state of 'query'
 const SearchForm = () => {
   const [ searchTerm, setSearchTerm ] = useState("");
-  const {setQuery} = useUpdateData();
-
+  const { setQuery } = useUpdateData();
+  const navigate = useNavigate();
   const onSearchChange = e => setSearchTerm(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
+    navigate(`search/${searchTerm}`);
     setQuery(searchTerm);
     e.target.reset(); 
   }

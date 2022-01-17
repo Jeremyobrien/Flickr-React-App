@@ -1,5 +1,4 @@
 import { GalleryProvider } from './components/Context';
-import './App.css';
 import {
   Routes,
   Route,
@@ -14,6 +13,7 @@ import NotFound from './components/NotFound';
 
 const App = () => {
     return (
+      //routes for SPA
       <GalleryProvider>
           <div className="container">             
               <SearchForm />
@@ -27,7 +27,7 @@ const App = () => {
                   </Route>
                   <Route path="*" element={ <NotFound />} />
               </Routes>
-                </div>
+          </div>
       </GalleryProvider>
     );
   }
