@@ -2,30 +2,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateData } from './Context';
 
-// import { useForm, useFiedArray, useWatch } from 'react-hook-form';
-
-//create url in searchForm ->Perform Search -> .then(updayteURL)?
-const SearchForm = (props) => {
+const SearchForm = () => {
   const [ searchTerm, setSearchTerm ] = useState("");
-  let navigate = useNavigate();
-  const runSearch = useUpdateData();
+  const {setQuery} = useUpdateData();
+
   const onSearchChange = e => setSearchTerm(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
-    runSearch(searchTerm);
-    navigate(`search/${searchTerm}`);
+    setQuery(searchTerm);
     e.target.reset(); 
   }
 
-//navigate(`${search}`)
         return (
             <form className="search-form" onSubmit={handleSubmit}> 
             <input type="search" 
                    name="search" 
                    placeholder="Search"
                    onChange={onSearchChange} 
-                  //  value={searchTerm}
                    required/>
             <button type="submit" className="search-button">
               <svg fill="#fff" height="24" viewBox="0 0 23 23" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +27,7 @@ const SearchForm = (props) => {
                 <path d="M0 0h24v24H0z" fill="none"/>
               </svg>
             </button>
-          </form>
+            </form>
         );
     }
 

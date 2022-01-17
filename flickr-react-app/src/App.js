@@ -1,14 +1,9 @@
-import {useState, useEffect, useCallback,useMemo } from 'react';
-import { GalleryProvider, useData, useUpdateData } from './components/Context';
+import { GalleryProvider } from './components/Context';
 import './App.css';
-import axios from 'axios';
 import {
   Routes,
   Route,
-  useParams,
-  useNavigate
 } from 'react-router-dom';
-import apiKey from './config';
 
 //components
 import SearchForm from './components/SearchForm';
@@ -18,40 +13,9 @@ import NotFound from './components/NotFound';
 
 
 const App = () => {
-  
-  // let search = useParams();
-  // searchParams = setSearchParams(search);
-  
-  // if (searchParams !== query) {
-  //   setQuery(searchParams);
-  // }
-
-
-
-
-// const getQuery = useMemo( () => ({ updateQuery }), [updateQuery]);
-
-
-  
-
-
-
-
-  // const params = searchParams.get('search')
-  // setSearchParams(params);
-  // if (searchParams !== query) {
-  // return updateQuery(searchParams);
-  // }
-
-const isLoading = useData();
-
     return (
       <GalleryProvider>
-          <div className="container">  
-            {
-              (isLoading)
-              ? <p>Loading...</p>       
-              : <div>
+          <div className="container">             
               <SearchForm />
               <Nav />
                 <Routes>
@@ -64,8 +28,6 @@ const isLoading = useData();
                   <Route path="*" element={ <NotFound />} />
               </Routes>
                 </div>
-            }
-            </div>
       </GalleryProvider>
     );
   }
