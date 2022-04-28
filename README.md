@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Project Description
+My first React project, an image gallery app. With the help of this powerful "MVC" (Model, View, Controller) library, I built this app in the style of modern single-page applications to keep it fast, modular, and in sync with current web development trends.
+
+It incorporates best practices in react, like using JSX to write markup-like syntax directly in my JS files and managing state in a container component that passes data down to reusable stateless components. Additionally, it utilizes React supportive tools like the Create React App and React Router V6 modules.
+
+This project:
+
+* Uses JavaScript and JSX to build out the gallery components in a modular fashion.
+* Employs React Router V6 to set up routes for three default topic pages and a search page.
+* Makes use of Axios to fetch data from the Flickr API and uses it to display images in app.
+* Adds logic to handle the search and various requirements of the project.
+
